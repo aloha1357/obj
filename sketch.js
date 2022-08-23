@@ -186,7 +186,7 @@ class CentroidTracker {
     updateTrackable(obj) {
         console.log("Trackable");
         Object.entries(obj).forEach(([objectID, centroid]) => {
-            debugger;
+            //debugger;
             console.log("8888");
             let to = this.trackableObjects[objectID];
             if (to == null || to == undefined) {
