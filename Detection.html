@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="Detection" content="width=device-width, initial-scale=1.0" charset="utf8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <script src="https://unpkg.com/ml5@0.5.0/dist/ml5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     -->
+    <script src="sketch.js"></script>
+    <script src="index.js"></script>
+    <!-- <script src="diagram.js"></script> -->
+    <title>name= "Detection System"</title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <span class="icon"><ion-icon name="logo-apple-ar"></ion-icon></span>
+                        <span class="title">Object Detection</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Home Page</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Darshboard.html">
+                        <span class="icon"><ion-icon name="stats-chart-outline"></ion-icon></ion-icon></ion-icon></span>
+                        <span class="title">Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Detection.html">
+                        <span class="icon"><ion-icon name="aperture-outline"></ion-icon></span>
+                        <span class="title">Detection</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Test.html">
+                        <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                        <span class="title">Test</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Setting.html">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                        <span class="title">Setting</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Log in</span>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#">
+                        <span class="icon"></ion-icon><ion-icon name="log-out-outline"></ion-icon></ion-icon></span>
+                        <span class="title">Sign out</span>
+                </a>
+                </li>-->
+            </ul>
+        </div>
+
+        <!--main-->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <!--search
+                <div class="search">
+                    <label >
+                            <input type="text" placeholder="Search Here">
+                            <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>-->
+                <!--userImg-->
+                <div class="user">
+                </div>
+            </div>
+
+
+            <!--Graphic-->
+            <div class="graphBox">
+                <div class="stream">
+                    <div id="sketch-holder"></div>
+                    <!--<script src="face.js"></script>
+                            <script async src="opencv/opencv.js"></script>-->
+                </div>
+                <div class="diagram">
+                    <div class="ButtonBox">
+                        <div class="card">
+                            <div>
+                                <div class="cardName">NDHU-Parkbot</div>
+                                <img src="NDHU-Parkbot.jpg" alt="">
+                            </div>
+                            <div class="iconbx">
+                                <ion-icon name="stats-chart-outline"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div>
+                                <!-- <div class="cardName">NDHU-Parkbot</div>
+                                <img src="NDHU-Parkbot.jpg" alt=""> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--card-->
+            <div class="cardBox">
+                <div class="ButtonBox">
+
+                    <button class="card">
+                        <div>
+                    
+                            <div class="cardName"> Lock</div>
+                        </div>
+                        <div class="iconbx">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <button class="card">
+                        <div>
+                    
+                                                                                      <select class="cardname" name="format" id="format">
+      <option value="scooter">理工停車場</option>
+      <option value="person">行政大樓</option>
+   </select>
+                        </div>
+                        <div class="iconbx">
+                            <ion-icon name="location-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <button class="card">
+                        <div>
+                    
+                                                          <select class="cardname" name="format" id="format">
+      <option value="scooter">摩托車</option>
+      <option value="person">行人</option>
+      <option value="cars">汽車</option>
+   </select>
+                        </div>
+                        <div class="iconbx">
+                    
+                            <ion-icon name="logo-apple-ar"></ion-icon>
+                        </div>
+                    </button>
+                    <button class="card">
+                        <div>
+                              <select class="cardname" name="format" id="format">
+      <option value="left">左進右出</option>
+      <option value="right">右進左出</option>
+      <option value="up">上進下出</option>
+      <option value="down">下進上出</option>
+   </select>
+                        </div>
+                        <div class="iconbx">
+                            <ion-icon name="compass-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <button class="card">
+                        <div>
+                    
+                            <div class="cardName">Start</div>
+                            <!--<div class="numbers">Tracking...</div>-->
+                        </div>
+                        <div class="iconbx">
+                            <ion-icon name="analytics-outline"></ion-icon>
+                        </div>
+                    </button>
+
+
+
+                </div>
+                <div class="empty"></div>
+            </div>
+            <!-- data list-->
+            <div class="details">
+                <div class="recents">
+                    <div class="cardHeader">
+                        <h2>Data</h2>
+                        <!--search-->
+                        <div class="search">
+                            <label>
+                                        <input type="text" placeholder="Search Here">
+                                        <ion-icon name="search-outline"></ion-icon>
+                                </label>
+                        </div>
+                        <!--search-->
+                        <a href="#" class="btn">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Place</td>
+                                <td>Obeject</td>
+                                <td>Time</td>
+                                <td>Increase</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>理工二館</td>
+                                <td>Scooter</td>
+                                <td>2022-05-11T21:29:53</td>
+                                <td><span class="status low">36</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td>Star</td>
+                                <td><span class="status delivered">+3</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="Detect_Object">
+                    <!-- <div class="cardHeader">
+                        <h2>Recents</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="img1.jpg"></div>
+                            </td>
+                            <td>
+                                <h4>Scooter</h4>
+                            </td>
+                        </tr>
+                    </table> 
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        //MenuToggle
+        let toggle = document.querySelector('.toggle');
+        let navigation = document.querySelector('.navigation');
+        let main = document.querySelector('.main');
+
+        toggle.onclick = function() {
+            navigation.classList.toggle('active');
+            main.classList.toggle('active');
+        }
+
+        // add hovered classs in selected list item
+        let list = document.querySelectorAll('.navigation li');
+
+        function activeLink() {
+            list.forEach((item) =>
+                item.classList.remove('hovered'));
+            this.classList.add('hovered');
+        }
+        list.forEach((item) =>
+            item.addEventListener('mouseover', activeLink));
+    </script>
+</body>
+
+</html>
