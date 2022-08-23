@@ -291,7 +291,7 @@ function draw() {
         console.log(obj3)
             //ct.updateTrackabled;
             //console.log([~~(object.x), ~~(object.y)], [~~(object.width), ~~(object.height)]);
-        debugger;
+       // debugger;
         if (old[0] == 0) {
             old[0] = ~~((object.x + object.width) / 2);
             old[1] = ~~((object.y + object.height) / 2);
